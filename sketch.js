@@ -21,6 +21,26 @@ function setup() {
   noCursor();
   noCanvas();
   
+    window.blockMenuHeaderScroll = false;
+$(window).on('touchstart', function(e)
+{
+    if ($(e.target).closest('#mobileMenuHeader').length == 1)
+    {
+        blockMenuHeaderScroll = true;
+    }
+});
+$(window).on('touchend', function()
+{
+    blockMenuHeaderScroll = false;
+});
+$(window).on('touchmove', function(e)
+{
+    if (blockMenuHeaderScroll)
+    {
+        e.preventDefault();
+    }
+});
+  
   if(window.location.hash){
     var contentNav = document.querySelector("#contentNavigation");
     if(window.location.hash === "#motivation"){
@@ -128,6 +148,7 @@ function touchStarted() {
 function touchEnded(){
   // link.attribute("href",links[focusIndexV][focusIndexH]);
   window.location.assign(links[focusIndexV][focusIndexH]);
+  // window.location.reload(true);
 }
 
 function mouseMoved() {
@@ -140,27 +161,6 @@ function focusChange(){
   //edges handle function;
 
   link.position(mouseX-10,mouseY-10);
-  
-  window.blockMenuHeaderScroll = false;
-$(window).on('touchstart', function(e)
-{
-    if ($(e.target).closest('#mobileMenuHeader').length == 1)
-    {
-        blockMenuHeaderScroll = true;
-    }
-});
-$(window).on('touchend', function()
-{
-    blockMenuHeaderScroll = false;
-});
-$(window).on('touchmove', function(e)
-{
-    if (blockMenuHeaderScroll)
-    {
-        e.preventDefault();
-    }
-});
-  
   
   if(movable){
     var nonap = false;
