@@ -120,8 +120,8 @@ function draw() {
   //   focusIndexV = int(map(mouseY,0,windowHeight,0,5));
   // }
 }
-
-function touchMoved() {
+// function touchMoved() {
+function touchStarted() {
   focusChange();
 }
 
@@ -140,6 +140,26 @@ function focusChange(){
   //edges handle function;
 
   link.position(mouseX-10,mouseY-10);
+  
+  window.blockMenuHeaderScroll = false;
+$(window).on('touchstart', function(e)
+{
+    if ($(e.target).closest('#mobileMenuHeader').length == 1)
+    {
+        blockMenuHeaderScroll = true;
+    }
+});
+$(window).on('touchend', function()
+{
+    blockMenuHeaderScroll = false;
+});
+$(window).on('touchmove', function(e)
+{
+    if (blockMenuHeaderScroll)
+    {
+        e.preventDefault();
+    }
+});
   
   
   if(movable){
