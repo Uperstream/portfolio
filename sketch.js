@@ -13,6 +13,29 @@ var hash = false;
 var countDownSpan = 25;
 var countDown = countDownSpan;
 
+  // window.blockMenuHeaderScroll = false;
+  $(window).on('touchstart', function()
+  {
+    // blockMenuHeaderScroll = true;
+    focusChange();
+    
+      // if ($(e.target).closest('#mobileMenuHeader').length == 1)
+      // {
+          
+      // }
+  });
+  $(window).on('touchend', function()
+  {
+      // blockMenuHeaderScroll = false;
+      window.location.assign(links[focusIndexV][focusIndexH]);
+  });
+  // $(window).on('touchmove', function()
+  // {
+      // if (blockMenuHeaderScroll)
+      // {
+      //     e.preventDefault();
+      // }
+  // });
 
 function setup() {
   focusIndexV = int(map(mouseY,0,windowHeight,0,5));
@@ -20,26 +43,6 @@ function setup() {
   // print(movedX);
   noCursor();
   noCanvas();
-  
-    window.blockMenuHeaderScroll = false;
-$(window).on('touchstart', function(e)
-{
-    if ($(e.target).closest('#mobileMenuHeader').length == 1)
-    {
-        blockMenuHeaderScroll = true;
-    }
-});
-$(window).on('touchend', function()
-{
-    blockMenuHeaderScroll = false;
-});
-$(window).on('touchmove', function(e)
-{
-    if (blockMenuHeaderScroll)
-    {
-        e.preventDefault();
-    }
-});
   
   if(window.location.hash){
     var contentNav = document.querySelector("#contentNavigation");
@@ -141,15 +144,15 @@ function draw() {
   // }
 }
 // function touchMoved() {
-function touchStarted() {
-  focusChange();
-}
+// function touchStarted() {
+//   focusChange();
+// }
 
-function touchEnded(){
-  // link.attribute("href",links[focusIndexV][focusIndexH]);
-  window.location.assign(links[focusIndexV][focusIndexH]);
-  // window.location.reload(true);
-}
+// function touchEnded(){
+//   // link.attribute("href",links[focusIndexV][focusIndexH]);
+//   window.location.assign(links[focusIndexV][focusIndexH]);
+//   // window.location.reload(true);
+// }
 
 function mouseMoved() {
   focusChange();
