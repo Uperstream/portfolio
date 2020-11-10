@@ -121,12 +121,21 @@ function draw() {
   // }
 }
 
-function focus(){
-  
+function touchMoved() {
+  focusChange();
+}
+
+function touchEnded(){
+  // link.attribute("href",links[focusIndexV][focusIndexH]);
+  window.location.assign(links[focusIndexV][focusIndexH]);
 }
 
 function mouseMoved() {
-  var moveVec = createVector(pmouseX-mouseX,pmouseY-mouseY);
+  focusChange();
+}
+
+function focusChange(){
+    var moveVec = createVector(pmouseX-mouseX,pmouseY-mouseY);
   
   //edges handle function;
 
