@@ -145,7 +145,7 @@ function draw() {
 }
 function touchMoved() {
 // function touchStarted() {
-  focusChange();
+  focusChange(2);
 }
 
 function touchEnded(){
@@ -155,11 +155,11 @@ function touchEnded(){
 }
 
 function mouseMoved() {
-  focusChange();
+  focusChange(1);
 }
 
-function focusChange(){
-    var moveVec = createVector(pmouseX-mouseX,pmouseY-mouseY);
+function focusChange(scl){
+    var moveVec = createVector((pmouseX-mouseX)*scl,(pmouseY-mouseY)*scl);
   
   //edges handle function;
 
