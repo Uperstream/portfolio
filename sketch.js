@@ -13,29 +13,29 @@ var hash = false;
 var countDownSpan = 25;
 var countDown = countDownSpan;
 
-  // window.blockMenuHeaderScroll = false;
-  $(window).on('touchstart', function()
-  {
-    // blockMenuHeaderScroll = true;
-    focusChange();
-    
-      // if ($(e.target).closest('#mobileMenuHeader').length == 1)
-      // {
-          
-      // }
-  });
-  $(window).on('touchend', function()
-  {
-      // blockMenuHeaderScroll = false;
-      window.location.assign(links[focusIndexV][focusIndexH]);
-  });
-  // $(window).on('touchmove', function()
+  // // window.blockMenuHeaderScroll = false;
+  // $(window).on('touchstart', function()
   // {
-      // if (blockMenuHeaderScroll)
-      // {
-      //     e.preventDefault();
-      // }
+  //   // blockMenuHeaderScroll = true;
+  //   focusChange();
+    
+  //     // if ($(e.target).closest('#mobileMenuHeader').length == 1)
+  //     // {
+          
+  //     // }
   // });
+  // $(window).on('touchend', function()
+  // {
+  //     // blockMenuHeaderScroll = false;
+  //     window.location.assign(links[focusIndexV][focusIndexH]);
+  // });
+  // // $(window).on('touchmove', function()
+  // // {
+  //     // if (blockMenuHeaderScroll)
+  //     // {
+  //     //     e.preventDefault();
+  //     // }
+  // // });
 
 function setup() {
   focusIndexV = int(map(mouseY,0,windowHeight,0,5));
@@ -143,16 +143,16 @@ function draw() {
   //   focusIndexV = int(map(mouseY,0,windowHeight,0,5));
   // }
 }
-// function touchMoved() {
+function touchMoved() {
 // function touchStarted() {
-//   focusChange();
-// }
+  focusChange();
+}
 
-// function touchEnded(){
-//   // link.attribute("href",links[focusIndexV][focusIndexH]);
-//   window.location.assign(links[focusIndexV][focusIndexH]);
-//   // window.location.reload(true);
-// }
+function touchEnded(){
+  // link.attribute("href",links[focusIndexV][focusIndexH]);
+  window.location.assign(links[focusIndexV][focusIndexH]);
+  // window.location.reload(true);
+}
 
 function mouseMoved() {
   focusChange();
