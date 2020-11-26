@@ -37,7 +37,7 @@ function setup() {
   for (var i = 0; i < 500; i++) {
     stars[i] = new Star();
   }
-  loadJSON("Game.json", gotData);
+  loadJSON("Json/Game.json", gotData);
   // en = loadJSON("GameEN.json", gotData);
 }
 

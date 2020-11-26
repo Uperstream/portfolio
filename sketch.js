@@ -411,17 +411,17 @@ function FocusVertical(inc){
         expands[focusIndexV-1].removeClass("expand");
       }
     }
-    if(move){
-      if(focusIndexV==2){
-        // expands[focusIndexV-1].removeClass("move");
-        select(".picture").style("margin-left","35vw");
-      }
-      if(focusIndexV==1){
-        hash = true;
-      }else{
-        hash = false;
-      }
-    }
+    // if(move){
+    //   if(focusIndexV-1==1){
+    //     // expands[focusIndexV-1].removeClass("move");
+    //     select(".picture").style("margin-left","35vw");
+    //   }
+    //   if(focusIndexV==1){
+    //     hash = true;
+    //   }else{
+    //     hash = false;
+    //   }
+    // }
     focusIndexV+=inc;
     if(expand){
       if(focusIndexV>0&&focusIndexV<5){
@@ -441,17 +441,16 @@ function FocusVertical(inc){
       movable = false;
     }
     if(move){
-      if(focusIndexV==2){
-        // expands[focusIndexV-1].addClass("move");
+      // if(focusIndexV==2){
         var imgLength = 0;
         for(var i =0;i<focusIndexH;i++ ){
           
           imgLength += elements[2][i].width;
         }
-        imgLength -= 400;
+        imgLength -= 600;
         select(".picture").style("margin-left",""-imgLength+"px");
         // select(".picture").style("margin-left",""+(10-focusIndexH*40)+"vw");
-      }
+      // }
       // print(elements[focusIndexV][focusIndexH].elt.dataset.to);
       if(focusIndexV==1){
         hash = true;
@@ -526,6 +525,15 @@ function FocusHorizontal(inc){
     focusIndexH+=inc;
     elements[focusIndexV][focusIndexH].addClass("highlight");
     movable = false;
+    // if(expand){
+    //   var imgLength = 0;
+    //     for(var i =0;i<focusIndexH;i++ ){
+    //       imgLength += 250;
+    //       // imgLength += elements[i][i].width;
+    //     }
+    //     // imgLength -= 400;
+    //     select(".rightspan").style("margin-left",""-imgLength+"px");
+    // }
       
     if(move){
       if(focusIndexV==2){

@@ -299,9 +299,10 @@ nav li {
   margin: 0;
   font-weight: 300;
   position: absolute;
-  bottom: 4.5vh;
+  left:10px;
+  bottom: 40px;
   /*padding:10vh 0 0 1vw;*/
-  font-size: 1.8vw;
+  font-size: 24pt;
   /*text-overflow:ellipsis;*/
   /*overflow: hidden;*/
 }
@@ -412,12 +413,12 @@ nav li {
 }
 
 .content a {
-  color: #777;
+  color: #888;
   font-style: Italic;
   margin-right: 1vw;
   text-decoration: none;
   font-size: 1.2vw;
-  font-weight: 300;
+  font-weight: 500;
   /*line-height:100%;*/
 }
 
@@ -602,6 +603,9 @@ nav li {
   .expand .expandText{
     font-size: 14pt;
   }
+  .leftspan p{
+    font-size:20pt;
+  }
 }
 
 @media screen and (max-width:1000px){
@@ -642,6 +646,9 @@ nav li {
   }
   .showcase img {
     margin-left:-80px;
+  }
+  .leftspan p{
+    font-size:12pt;
   }
 }
 
