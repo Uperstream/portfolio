@@ -12,6 +12,9 @@ var snapped = false;
 var hash = false;
 var countDownSpan = 25;
 var countDown = countDownSpan;
+var ls = [];
+var tut = false;
+var tutPop, tutl, tutr;
 
   // // window.blockMenuHeaderScroll = false;
   // $(window).on('touchstart', function()
@@ -38,11 +41,41 @@ var countDown = countDownSpan;
   // // });
 
 function setup() {
+  noCursor();
+  var tu = getCookie("tut");
+  var canvas = createCanvas(windowWidth,windowHeight);
+  canvas.position(0,0);
+  if(tu !== "no"){
+    canvas.style("z-index","2");
+    tut = true;
+    document.cookie = "tut = no";
+    background(0,100);
+    tutPop = select("#tut");
+    tutPop.position(width*0.5-200,height*0.5-80);
+    tutPop.class("tut");
+    var tutP = createP(tutPop.elt.dataset.texts);
+    // var tutP = createP("Opps, I’m taking your mouse, </br>because it is an user-enemy design ;)");
+    tutP.style("margin","30px");
+    tutP.parent(tutPop);
+    tutl = createA("#", tutPop.elt.dataset.lefta);
+    tutl.parent(tutPop);
+    tutr = createA("#", tutPop.elt.dataset.righta);
+    tutr.parent(tutPop);
+  }
+
+
   focusIndexV = int(map(mouseY,0,windowHeight,0,5));
   // focusIndexH = int(map(mouseX,0,windowWidth,0,5));
   // print(movedX);
-  noCursor();
-  noCanvas();
+  for(var l = 0; l<20; l++){
+    //particle for strokes and lines and rects..
+    ls[l] = new lines(random(width),random(height),random(min(width,height)*0.2),int(random(4)));
+  }
+  strokeWeight(2);
+  noFill();
+  stroke(255,100);
+
+  // canvas.style("z-index","2");
   
   if(window.location.hash){
     var contentNav = document.querySelector("#contentNavigation");
@@ -107,12 +140,21 @@ function setup() {
   // link.style("font-size","80pt");
   link.style("opacity","0");
   link.style("cursor","none");
-
-
 }
 
 function draw() {
   noCursor();
+  if(!tut){
+    for(var l = 0; l<ls.length; l++){
+        //particle for strokes and lines and rects..
+      if(frameCount%ls[l].pace==1){
+        ls[l].edge();
+        ls[l].update();
+        ls[l].show();
+      }
+    }
+  }
+  // }
   if(!movable){
     countDown--;
   }
@@ -143,9 +185,88 @@ function draw() {
   //   focusIndexV = int(map(mouseY,0,windowHeight,0,5));
   // }
 }
+
+function lines(x, y, l, s){
+  this.posStart = createVector(x,y);
+  this.l = l;
+  this.s = s;
+  this.pace = int(random(20,80));
+  this.dir = random(TWO_PI);
+  this.posEnd = new p5.Vector.fromAngle(this.dir);
+  this.posEnd.mult(this.l);
+  this.posEnd.add(this.posStart);
+  this.vel = new p5.Vector.fromAngle(random(TWO_PI));
+  this.acc = new p5.Vector.fromAngle(random(TWO_PI));
+  this.dirAcc = random(TWO_PI);
+  this.maxSpeed = 10;
+  this.show = function(){
+    if(this.s === 0){
+      line(this.posStart.x,this.posStart.y,this.posEnd.x, this.posEnd.y);
+    }else if(this.s == 1){
+      rect(this.posStart.x,this.posStart.y,this.posEnd.x*0.1, this.posEnd.y*0.1);
+    }else if(this.s == 2){
+      ellipse(this.posStart.x,this.posStart.y,this.posEnd.x*0.1, this.posEnd.y*0.1);
+    }else{
+      triangle(this.posStart.x,this.posStart.y,this.posEnd.x, this.posEnd.y, this.posEnd.x, this.posStart.y);
+    }
+  }
+  this.update = function(){
+    this.vel.add(this.acc);
+    if(this.vel.mag()>this.maxSpeed){
+      this.vel.setMag(this.maxSpeed);
+    }
+    this.posStart.add(this.vel);
+    this.dirAcc = random(-0.1,0.1);
+    if(this.dirAcc > this.maxSpeed){
+      this.dirAcc = this.maxSpeed;
+    }
+    this.dir += this.dirAcc;
+    this.posEnd = new p5.Vector.fromAngle(this.dir);
+    this.posEnd.mult(this.l);
+    this.posEnd.add(this.posStart);
+  }
+  this.edge = function(){
+    if(this.posStart.x>width){
+      this.posStart.x = 0;
+    }
+    if(this.posStart.x<0){
+      this.posStart.x = width;
+    }
+    if(this.posStart.y>height){
+      this.posStart.y = 0;
+    }
+    if(this.posStart.y<0){
+      this.posStart.y = height;
+    }
+  }
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 function touchMoved() {
+  if(!tut){
+    clear();
+    focusChange(2);
 // function touchStarted() {
-  focusChange(2);
+  }else{
+    tutFocus();
+  }
+  
 }
 
 function touchEnded(){
@@ -155,12 +276,46 @@ function touchEnded(){
 }
 
 function mouseMoved() {
-  focusChange(1);
+  if(!tut){
+    clear();
+    focusChange(1);
+  }else{
+    tutFocus();
+  }
+}
+
+function tutFocus(){
+      var moveVec = createVector(pmouseX-mouseX,pmouseY-mouseY);
+  link.position(mouseX-10,mouseY-10);
+  if(tut){
+    if(movable&abs(moveVec.x)>2){
+      if(abs(moveVec.heading()-createVector(1,0).heading())<HALF_PI||abs(moveVec.heading()-createVector(-1,0).heading())<HALF_PI){
+        if (moveVec.x>0){
+          tutSelect(-1);
+        }else if (moveVec.x<0){
+          tutSelect(1);
+        }
+      }
+      link.attribute("href","#");
+      // movable = false;
+      //handling fast move
+      // countDown < 0;
+      countDown = map(moveVec.mag(),0,50,10,0);
+      // print(countDown);
+      // countDown = countDownSpan;
+    }
+
+    
+  }
 }
 
 function focusChange(scl){
-    var moveVec = createVector((pmouseX-mouseX)*scl,(pmouseY-mouseY)*scl);
-  
+    var moveVec = createVector(pmouseX-mouseX,pmouseY-mouseY);
+    if(moveVec.mag()<2){
+      scl*=0.5;
+    }
+    moveVec.mult(scl);
+    
   //edges handle function;
 
   link.position(mouseX-10,mouseY-10);
@@ -348,6 +503,16 @@ function FocusVertical(inc){
   }
 }
 
+function tutSelect(inc){
+  tutr.removeClass("highlight");
+  tutl.removeClass("highlight");
+  if(inc < 0){
+    tutl.addClass("highlight");
+  }else{
+    tutr.addClass("highlight");
+  }
+}
+
 function FocusHorizontal(inc){
   if(focusIndexH+inc < elements[focusIndexV].length&&focusIndexH+inc >= 0){
     if(move){
@@ -388,11 +553,14 @@ function FocusHorizontal(inc){
   // focusIndexH+=inc;
 }
 
-// function mousePressed() {
+function mousePressed() {
+  if(tut){
+    tutPop.hide();
+  }
 //   print("1");
 //   if(elements[focusIndexV].length>1){
 //     // elements[focusIndexV][focusIndexH]
 //   }else{
 //     // elements[focusIndexV]
 //   }
-// }
+}

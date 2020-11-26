@@ -15,6 +15,41 @@ body {
   width: 100%;
 }
 
+/*#tut{*/
+/*  display:none;*/
+/*}*/
+
+.tut{
+  display:block;
+  width:400px;
+  height:160px;
+  background:#aaa;
+  z-index:3;
+  text-align:center;
+}
+
+/*.tut .highlight{*/
+/*  background-color:#16748e;*/
+/*}*/
+
+.tut a {
+  /*color: #888;*/
+  color:#666;
+  /*background:#333;*/
+  text-decoration: none;
+  margin: 20px;
+  cursor: none;
+  /*font-size: calc(2.6vw+2pt);*/
+  /*font-size:16pt;*/
+  font-size:120%;
+  position: relative;
+  /*bottom:0.1vh;*/
+  font-weight: 700;
+}
+
+.tut .highlight{
+  color:#aaa;
+}
 
 /*canvas {*/
 
