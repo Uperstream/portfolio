@@ -463,9 +463,12 @@ nav li {
   position: absolute;
   /*margin: 0;*/
   font-weight: 300;
-  font-size: 2.5vw;
+  font-size: 26pt;
   color: #ccc;
   width: 30%;
+}
+.moretext p{
+  font-size: 16pt;
 }
 
 .projectContent h1 {
@@ -546,6 +549,9 @@ nav li {
   .projectContent p {
     font-size: 20pt;
   }
+  .moretext p{
+    font-size: 10pt;
+  }
   .projectContent h1 {
     /*font-weight: 400;*/
     font-size: 32pt;
@@ -583,6 +589,9 @@ nav li {
 @media screen and (max-width:600px){
   .projectContent p {
     font-size: 14pt;
+  }
+  .moretext p{
+    font-size: 8pt;
   }
   .projectContent h1 {
     /*font-weight: 400;*/
